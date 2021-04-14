@@ -13,7 +13,7 @@ DELETE: /delete/<audioFileType>/<int:pk> - deletes given instance as primary key
 ---
 ## NOTE:
 * available "audioFileType" types: audiobook, podcast, song
-* please ensure participants field of Podcast class gets a string of list of strings, {'participants':"['test1','test2]"}
+* please ensure participants field data is inserted in this format, {'participants':"['test1','test2]"}
 * django-mysql's ListCharField field is used, which requires list to be passed of type CharField with max length validation
 * api working validation are done both via DRF's template view and POSTMAN
 ---

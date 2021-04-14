@@ -72,6 +72,12 @@ class PodcastTest(APITestCase):
         data = self.data
         serialized = PodcastSerializer(data=data)
         self.assertEqual(serialized.is_valid(), True)
+    
+    def test_podcast_serializer_doesnt_works(self):
+        """incorrect data participants, passed as list without quotes"""
+        incorrect_formatted_data = {'podcast_name':'New','duration_in_sec':500,'uploaded_time':timezone.now(),'host':'Ben','participants': ['li','Chang']}
+        response = self.client.post(reverse('audiofiles:create', kwargs={'audioFileType':'podcast'}), incorrect_formatted_data)
+        self.assertEqual(response.status_code, 400)
 
 class SongTest(APITestCase):
     def setUp(self):
@@ -103,6 +109,3 @@ class SongTest(APITestCase):
         serialized = SongSerializer(data=data)
         self.assertEqual(serialized.is_valid(), True)
         self.assertEqual(serialized.data['song_name'], 'Awesome')
-    
-    def test_serializer_doesnt_works(self):
-        pass
